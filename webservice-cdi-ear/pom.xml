@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.fererlab.webservice</groupId>
+    <artifactId>webservice-cdi-ear</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>ear</packaging>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <!-- COMPILE PLUGIN -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.5.1</version>
+                <inherited>true</inherited>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+            <!-- WILDFLY PLUGIN -->
+            <plugin>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>1.0.2.Final</version>
+            </plugin>
+            <!-- EAR PLUGIN -->
+            <plugin>
+                <artifactId>maven-ear-plugin</artifactId>
+                <version>2.10.1</version>
+                <configuration>
+                    <modules>
+                        <ejbModule>
+                            <groupId>com.fererlab.webservice</groupId>
+                            <artifactId>payment-endpoint</artifactId>
+                        </ejbModule>
+                        <ejbModule>
+                            <groupId>com.fererlab.webservice</groupId>
+                            <artifactId>payment-business-logic</artifactId>
+                        </ejbModule>
+                        <ejbModule>
+                            <groupId>com.fererlab.webservice</groupId>
+                            <artifactId>stock-endpoint</artifactId>
+                        </ejbModule>
+                        <ejbModule>
+                            <groupId>com.fererlab.webservice</groupId>
+                            <artifactId>stock-business-logic</artifactId>
+                        </ejbModule>
+                        <webModule>
+                            <groupId>com.fererlab.webservice</groupId>
+                            <artifactId>webservice-cdi-war</artifactId>
+                        </webModule>
+                    </modules>
+                    <generateApplicationXml>true</generateApplicationXml>
+                </configuration>
+            </plugin>
+            <!-- RESOURCE PLUGIN -->
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.7</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+
+        <!-- PROVIDED -->
+        <dependency>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>javax.ws.rs-api</artifactId>
+            <version>2.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- EJB -->
+        <dependency>
+            <groupId>com.fererlab.webservice</groupId>
+            <artifactId>payment-business-logic</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>ejb</type>
+        </dependency>
+        <dependency>
+            <groupId>com.fererlab.webservice</groupId>
+            <artifactId>payment-endpoint</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>ejb</type>
+        </dependency>
+        <dependency>
+            <groupId>com.fererlab.webservice</groupId>
+            <artifactId>stock-business-logic</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>ejb</type>
+        </dependency>
+        <dependency>
+            <groupId>com.fererlab.webservice</groupId>
+            <artifactId>stock-endpoint</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>ejb</type>
+        </dependency>
+
+        <!-- WAR -->
+        <dependency>
+            <groupId>com.fererlab.webservice</groupId>
+            <artifactId>webservice-cdi-war</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>war</type>
+        </dependency>
+
+    </dependencies>
+
+</project>
